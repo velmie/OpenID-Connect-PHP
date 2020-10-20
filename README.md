@@ -14,8 +14,8 @@ A special thanks goes to Justin Richer and Amanda Anganes for their help and sup
 ## Install ##
  1. Install library using composer
 ```
-TODO: please update the instruction
-# composer require jumbojett/openid-connect-php
+composer config repositories.velmie vcs https://github.com/velmie/openid-connect-php
+composer require jumbojett/openid-connect-php:master-dev
 ```
  2. Include composer autoloader
 ```php
