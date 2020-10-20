@@ -604,14 +604,8 @@ class OpenIDConnectClient
         return md5(uniqid(rand(), TRUE));
     }
 
-    /**
-     * Start Here
-     * @return void
-     * @throws OpenIDConnectClientException
-     */
-    private function requestAuthorization() {
-
-        $auth_endpoint = $this->getProviderConfigValue('authorization_endpoint');
+    public function getAuthorizationUrlAndCommit() {
+        $auth_endpoint = $this->getProviderConfigValue("authorization_endpoint");
         $response_type = 'code';
 
         // Generate and store a nonce in the session
@@ -643,7 +637,16 @@ class OpenIDConnectClient
         $auth_endpoint .= (strpos($auth_endpoint, '?') === false ? '?' : '&') . http_build_query($auth_params, null, '&', $this->enc_type);
 
         $this->commitSession();
-        $this->redirect($auth_endpoint);
+
+        return $auth_endpoint;
+    }
+
+    /**
+     * Start Here
+     * @return void
+     */
+    private function requestAuthorization() {
+        $this->redirect($this->getAuthorizationUrlAndCommit());
     }
 
     /**
